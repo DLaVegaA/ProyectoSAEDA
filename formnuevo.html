@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./Proyecto.css">
+    <script src="./js/estados.js" defer></script>
+    <script src="./js/ProyectoJs.js"></script>
+
+    <title>.::Agregar Alumno::.</title>
+    <style>
+
+        a,input[type="submit"],button
+        {
+            font-size: 14px;
+            text-align:center;
+            width: 100px;
+            display: inline-block;
+            background-color:rgb(57, 123, 190);
+            padding: 6px 10px;
+            border-radius:5px;
+            text-decoration: none;
+            color:white;
+            border:1px solid black;
+            cursor:pointer;
+        }
+    </style>
+
+</head>
+<body>
+
+
+    <div class="table-responsive" id="formagregar">
+        <form method="POST" action="./php/agregar.php" >
+            <table class="table">
+            <tr><th style="background-color: rgb(57, 123, 190);color:white"   colspan="4">Agregar Alumno</th></tr>
+                 <tr> 
+                    <td>Número de Boleta </td>
+                    <td><input type="text" name="txtNoboleta"  required ></td>
+                </tr>
+                <tr> 
+                    <td>Nombre</td>
+                    <td><input type="text" name="txtNombre"  required></td>
+                </tr>
+                <tr> 
+                    <td>Apellido Paterno</td>
+                    <td><input type="text" name="txtApPat"  required></td>
+                </tr>
+                <tr> 
+                    <td>Apellido Materno</td>
+                    <td><input type="text" name="txtApMat" required></td>
+                </tr>
+                <tr> 
+                    <td>Curp</td>
+                    <td><input type="text" name="txtCurp" required></td>
+                </tr>
+                <tr> 
+                    <td>Fecha Nacimiento</td>
+                    <td><input type="date" name="dateFecha" required></td>
+                </tr>
+                <tr> 
+                    <td>Género:</td>
+                <td>
+                <fieldset class="row mb-3">
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="generoRadio" id="masculinoRadio" value="Masculino" >
+                            <label class="form-check-label" for="masculinoRadio">Masculino</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="generoRadio" id="femeninoRadio" value="Femenino" >
+                            <label class="form-check-label" for="femeninoRadio">Femenino</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="generoRadio" id="otroRadio" value="Otro">
+                            <label class="form-check-label" for="otroRadio">Otro</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </td>
+                </tr>
+                
+
+                <tr> 
+                    <td >Discapacidad</td>
+                    <td>
+                    <fieldset class="row mb-3">
+                                        <legend class="col-form-label col-sm-2 pt-0">A fin de considerar sus necesidades y atenderlas, requerimos saber si usted es una persona:</legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="discapacidadRadio" id="auditivaRadio" value="Discapacidad auditiva" onclick="habilitarDis();">
+                                                <label class="form-check-label" for="auditivaRadio">
+                                                Con discapacidad auditiva.
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="discapacidadRadio" id="sillaRuedasRadio" value="Discapacidad motriz usuaria de silla de ruedas" onclick="habilitarDis();">
+                                                <label class="form-check-label" for="SillaRuedasRadio">
+                                                Con discapacidad motriz usuaria de silla de ruedas.
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="discapacidadRadio" id="muletasRadio" value="Discapacidad motriz usuaria de muletas" onclick="habilitarDis();">
+                                                <label class="form-check-label" for="muletasRadio">
+                                                Con discapacidad motriz usuaria de muletas.
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="discapacidadRadio" id="bastonRadio" value="Discapacidad motriz usuaria de bastón" onclick="habilitarDis();">
+                                                <label class="form-check-label" for="bastonRadio">
+                                                Con discapacidad motriz usuaria de bastón.
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="discapacidadRadio" id="otraRadio" value="Otra" onclick="habilitarDis();">
+                                                <label class="form-check-label" for="otraRadio">
+                                                Otra.
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="discapacidadRadio" id="ningunaRadio" value="Ninguna" onclick="habilitarDis();" checked>
+                                                <label class="form-check-label" for="ningunaRadio">
+                                                Ninguna
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" name="discapacidad" id="floatingDiscapacidad" class="form-control" placeholder=" " disabled>
+                                        <label for="floatingDiscapacidad">Discapacidad:</label>
+                                    </div>
+                                </fieldset>
+                    </td>
+                </tr>
+
+
+                <tr> 
+                    <td>Calle</td>
+                    <td><input type="text" name="txtcall" required></td>
+                </tr>
+                <tr> 
+                    <td>Número</td>
+                    <td><input type="text" name="txtnumc" required></td>
+                </tr>
+                <tr> 
+                    <td>Entidad Federativa</td>
+                    <td><select name="EntidadFederativa" id="floatingEntidadFederativa" onchange="cargarMunicipios();" class="form-control"></select></td>
+                </tr>
+                <tr> 
+                    <td>Municipio o Alcaldia </td>
+                    <td><select name="MunAl" id="floatingMunAl" class="form-control"></select></td>
+                </tr>
+                <tr> 
+                    <td>CódigoPostal</td>
+                    <td><input type="text" name="txtcodpos" required></td>
+                </tr>
+                <tr> 
+                    <td>Teléfono</td>
+                    <td><input type="text" name="txttel" required></td>
+                </tr>
+                <tr> 
+                    <td>Correo</td>
+                    <td><input type="text" name="txtcor" required></td>
+                </tr>
+                <tr> 
+                    <td>Escuela Procedencia</td>
+                    <td><select name="EscP" id="floatingEscP" class="form-control" onchange="habilitarNomEsc();">
+                        <option value="CECyT 1 González Vázquez Vega">CECyT 1 "González Vázquez Vega"</option>
+                        <option value="CECyT 2 Miguel Bernard">CECyT 2 "Miguel Bernard"</option>
+                        <option value="CECyT 3 Estanislao Ramírez Ruiz">CECyT 3 "Estanislao Ramírez Ruiz"</option>
+                        <option value="CECyT 4 Lázaro Cárdenas">CECyT 4 "Lázaro Cárdenas"</option>
+                        <option value="CECyT 5 Benito Juárez García">CECyT 5 "Benito Juárez García"</option>
+                        <option value="CECyT 6 Miguel Othón de Mendizábal">CECyT 6 "Miguel Othón de Mendizábal"</option>
+                        <option value="CECyT 7 Cuauhtémoc">CECyT 7 "Cuauhtémoc"</option>
+                        <option value="CECyT 8 Narciso Bassols García">CECyT 8 "Narciso Bassols García"</option>
+                        <option value="CECyT 9 Juan de Dios Bátiz">CECyT 9 "Juan de Dios Bátiz"</option>
+                        <option value="CECyT 10 Carlos Vallejo Márquez">CECyT 10 "Carlos Vallejo Márquez"</option>
+                        <option value="CECyT 11 Wilfrido Massieu Pérez">CECyT 11 "Wilfrido Massieu Pérez"</option>
+                        <option value="CECyT 12 José María Morelos y Pavón">CECyT 12 "José María Morelos y Pavón"</option>
+                        <option value="CECyT 13 Ricardo Flores Magón">CECyT 13 "Ricardo Flores Magón"</option>
+                        <option value="CECyT 14 Luis Enrique Erro">CECyT 14 "Luis Enrique Erro"</option>
+                        <option value="CECyT 15 Diódoro Antúnez Echegaray">CECyT 15 "Diódoro Antúnez Echegaray"</option>
+                        <option value="CECYT 16 Hidalgo">CECYT 16 "Hidalgo"</option>
+                        <option value="CECYT 17 León, Guanajuato">CECYT 17 "León, Guanajuato"</option>
+                        <option value="CECYT 18 Zacatecas">CECYT 18 "Zacatecas"</option>
+                        <option value="CECyT 19 Leona Vicario">CECyT 19 “Leona Vicario”</option>
+                        <option value="CET 1 Walter Cross Buchanan">CET 1 “Walter Cross Buchanan”</option>
+                        <option value="Otros">Otra escuela</option>
+                    </select></td>
+                </tr>
+                <tr> 
+                    <td>Nombre Escuela</td>
+                    <td> <input type="text" name="NomEsc" id="floatingNomEsc" class="form-control" placeholder=" " disabled value=""></td>
+                </tr>
+                <tr> 
+                    <td>Promedio</td>
+                    <td><input type="text" name="txtprom" required></td>
+                </tr>
+                <tr> 
+                    <td>Escom Opción</td>
+                    <td><input type="text" name="txtescomop" required></td>
+                </tr>
+        
+                <tr>
+                    
+                    <td colspan="2">
+                    <a href="./CRUDadmin.php">Cancelar</a>
+                    <input  style="width: 150px;" type="submit" name="btnmodificar" value="Agregar Alumno" onClick="javascript: return confirm('¿Deseas agregar a este alumno?');">
+                    </td>
+                </tr> 
+    
+    
+            </table>
+    
+    
+    
+    
+        </form>
+    
+    </div>
+    
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
