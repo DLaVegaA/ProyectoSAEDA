@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+.row::after
+{
+    content: "";
+    clear: both;
+    display: table;
+}
+
+[class*="col-"]
+{
+    padding: 20px;
+}
+
+#cuerpo
+{
+    margin: 0;
+    padding: 0;
+    background-image: url("./img/logoESCOM.png");
+    background-repeat: repeat;
+    background-size: 285px 360px;
+}
+
+.container
+{
+    background-color: white;
+    border: 2px solid #3C9DDC;
+    border-radius: 10px;
+}
+
+.navbar
+{
+    background-color: #e3f2fd;
+}
+
+#LogoESCOMNav
+{
+    width: 95%;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+    /* mix-blend-mode: color-burn; */
+}
+
+.menuPrin
+{
+    color: #3C9DDC;
+}
+
+.menuPrin:hover
+{
+    background-color: rgb(57, 123, 190);
+    color: white;
+    border-radius: 10px;
+}
+
+.activo
+{
+    background-color: rgb(57, 123, 190);
+    color: white;
+    border-radius: 10px;
+}
+
+#IPN
+{
+    color: rgb(102, 17, 17);
+    font-style: inherit;
+}
+
+.error
+{
+    color: red;
+}
+
+#piePag
+{
+    background-color: #0a4275;
+}
+
+#derPiePag
+{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.carouselTitulo
+{
+    color: #0a4275;
+}
+
+.carouselTexto
+{
+    color: black;
+}
+
+.carouselTextoAG
+{
+    color: white;
+}
+
+#alumnoTitulo
+{
+    color: hsl(209, 84%, 25%);
+    font-size: 50px;
+}
+
+.textoAlumnos
+{
+    font-size: 25px;
+}
+
+#contenedorAlumno
+{
+    background-color: #b2e1ff;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(19, 15, 15, 0.202);
+}
+
+.carousel-item img {
+    opacity: 0.8;
+}
+
+#barrabuscar
+{
+	color:white;
+	text-align:right;
+}
+#cajabuscar
+{
+	width:300px;
+	height:30px;
+	font-size:18px;
+	background-color:#f3f3f3;
+	border-color:white;
+	padding-left:10px;
+	margin: 0px 10px;
+}

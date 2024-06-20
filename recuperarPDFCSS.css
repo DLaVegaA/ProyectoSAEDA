@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+.row::after
+{
+    content: "";
+    clear: both;
+    display: table;
+}
+
+[class*="col-"]
+{
+    padding: 20px;
+}
+
+#cuerpo
+{
+    margin: 0;
+    padding: 0;
+    background-image: url("./img/logoESCOM.png");
+    background-repeat: repeat;
+    background-size: 300px 360px;
+    
+}
+
+/* #medio
+{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container
+{
+    background-color: white;
+    height: 100vh;
+} */
+
+.navbar
+{
+    background-color: #e3f2fd;
+}
+
+#LogoESCOMNav
+{
+    width: 95%;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+    /* mix-blend-mode: color-burn; */
+}
+
+.menuPrin
+{
+    color: #3C9DDC;
+}
+
+.menuPrin:hover
+{
+    background-color: rgb(57, 123, 190);
+    color: white;
+    border-radius: 10px;
+}
+
+.activo
+{
+    background-color: rgb(57, 123, 190);
+    color: white;
+    border-radius: 10px;
+}
+
+#IPN
+{
+    color: rgb(102, 17, 17);
+    font-style: inherit;
+}
+
+#divRecuPDF
+{
+    width: 75%;
+    border: 2px solid #3C9DDC;
+    border-radius: 10px;
+}
+
+#divAplicarExam
+{
+    width: 900px;
+    border: 2px solid #3C9DDC;
+    border-radius: 10px;
+}
+
+.error
+{
+    color: red;
+}
+
+#piePag
+{
+    background-color: #0a4275;
+}
+
+#derPiePag
+{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+

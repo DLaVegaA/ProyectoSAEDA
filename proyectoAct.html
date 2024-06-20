@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="./Proyecto.css">
+    <script src="./js/ProyectoJs.js"></script>
+    <script src="./js/validaciones.js"></script>
+    <script src="./js/jquery-3.7.1.minpro.js"></script>
+    <script src="./js/estados.js" defer></script>
+    <script>
+        $(document).ready(function()
+        {
+            $("form#RegistroAlumnos").submit(function(evento)
+            {
+                evento.preventDefault();
+
+                var datos = $(this).serialize();
+
+                $.ajax({
+                    type: "POST",
+                    url: "./php/procesarFormulario.php",
+                    data: datos,
+                    success: function(respuesta) 
+                    {
+                        console.log(respuesta);
+                        
+                        if(respuesta == 1){
+                            alert("No se guardaron los datos.");
+                        } else {
+                            window.location.href = "./php " + respuesta;
+                        }
+                    },
+                });
+            });
+
+            $("#mostrarModal").click(function() 
+            {
+                // Lógica para obtener los valores y mostrar el modal
+                var valoresIdentidad = [];
+                var valoresContacto = [];
+
+                $(".inputIdentidad").each(function() 
+                {
+                    valoresIdentidad.push($(this).val());
+                });
+
+                var valorGenero = $("input[name='generoRadio']:checked").val();
+                var valorDisc = $("input[name='discapacidadRadio']:checked").val();
+                var valorEntFe = $("#floatingEntidadFederativa").val();
+                var valorMunAl = $("#floatingMunAl").val();
+                var valorEscPro = $("#floatingEscP").val();
+                var promedioInput = $("#floatingPromedio").val();
+
+                $(".inputContacto").each(function() 
+                {
+                    valoresContacto.push($(this).val());
+                });
+
+                var valorOpc = $("input[name='OpRadio']:checked").val();
+
+   
+                if (ValidarFormulario()) 
+                {
+                    $("#Boleta").text(valoresIdentidad[0]);
+                    $("#Nombre").text(valoresIdentidad[1]);
+                    $("#ApPaterno").text(valoresIdentidad[2]);
+                    $("#ApMaterno").text(valoresIdentidad[3]);
+                    $("#CURP").text(valoresIdentidad[4]);
+                    $("#FechaNac").text(valoresIdentidad[5]);
+                    $("#Genero").text(valorGenero);
+                    
+                    if (valorDisc == "Otra") 
+                    {
+                        var discapacidadInput = $("#floatingDiscapacidad").val();
+                        
+                        $("#Discapacidad").text(discapacidadInput);
+                    }else{
+                        $("#Discapacidad").text(valorDisc);
+                    }
+                    /* $("#Discapacidad").text(valorDisc); */
+                    
+                    $("#Calle").text(valoresContacto[0]);
+                    $("#Numero").text(valoresContacto[1]);
+                    $("#EntidadFederativa").text(valorEntFe);
+                    $("#MunicipioAlcaldia").text(valorMunAl);
+                    $("#CodigoPostal").text(valoresContacto[2]);
+                    $("#Telefono").text(valoresContacto[3]);
+                    $("#Correo").text(valoresContacto[4]);
+
+                    if (valorEscPro == "Otros") 
+                    {
+                        var escuelaProInput = $("#floatingNomEsc").val();
+
+                        $("#EscuelaProcedencia").text(escuelaProInput);
+                    }else{
+                        $("#EscuelaProcedencia").text(valorEscPro);
+                    }
+                    /* $("#EscuelaProcedencia").text(valorEscPro); */
+                    
+                    $("#Promedio").text(promedioInput);
+
+                    $("#Opcion").text(valorOpc);
+
+        
+                    $('#checkDatos').modal('show');
+                } else {
+                    alert("Por favor rellene todos los campos de manera correcta .");
+                }
+            });
+        });
+    </script>
+
+    <title>.::Proyecto::.</title>
+</head>
+<body id="cuerpo">
+    <!-- Nav principal -->
+    <nav class="navbar navbar-expand-sm justify-content-sm-center sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="https://escom.ipn.mx/">
+                <img src="./img/logoESCOM.png" id="LogoESCOMNav" alt="ESCOM" width="60" height="48">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"">&#9776</span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item" id="navPrincipal">
+                        <a class="nav-link menuPrin" href="./index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menuPrin activo" href="./proyectoAct.html">Registro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menuPrin" href="./recuperarPDF.html">Recuperar PDF</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menuPrin" href="./examen.html">Examen</a>
+                    </li>
+                </ul>
+            </div>
+            <span class="navbar-text justify-content-end" id="IPN">Instituto Politécnico Nacional</span>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="./img/logoIpn.png" id="LogoIPNhead" alt="LogoIPN" width="72" height="57">
+            <h1>Escuela Superior de Cómputo</h1>
+            <p class="lead">Ingresa los siguientes datos para que se te pueda asignar un horario para que puedas realizar tu examen diagnóstico.</p>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <!-- Creación del nav de pestañas -->
+                <ul class="nav nav-tabs" id="misPestañas" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pestañaIdentidad" data-bs-toggle="tab" data-bs-target="#panelPestañaIdentidad" type="button" role="tab" aria-controls="panelPestañaIdentidad" aria-selected="true">Identidad</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pestañaContacto" data-bs-toggle="tab" data-bs-target="#panelPestañaContacto" type="button" role="tab" aria-controls="panelPestañaContacto" aria-selected="false">Contacto</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pestañaProcedencia" data-bs-toggle="tab" data-bs-target="#panelPestañaProcedencia" type="button" role="tab" aria-controls="panelPestañaProcedencia" aria-selected="false">Procedencia</button>
+                    </li>
+                </ul>
+                <!-- Creación del form -->
+                <form id="RegistroAlumnos" name="Registro" method="post" id="RegistroAlumnos" onsubmit="return ValidarFormulario();">
+                    <!-- Todo lo que va dentro de cada pestaña -->
+                    <div class="tab-content" id="myTabContent">
+                        <!-- Pestaña Identidad -->
+                        <div class="tab-pane fade show active" id="panelPestañaIdentidad" role="tabpanel" aria-labelledby="pestañaIdentidad" tabindex="0">
+                            <fieldset id="identidad">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="NoBoleta" id="floatingBoleta" class="form-control inputIdentidad" placeholder="202X63XXXX"/>
+                                    <label for="floatingBoleta">Número de Boleta:</label>
+                                    <span id="errorNoBoleta" class="error"></span>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="Nombre" id="floatingNombre" class="form-control inputIdentidad" placeholder="Ingresa tus nombres.">
+                                    <label for="floatingNombre">Nombre:</label>
+                                    <span id="errorNombre" class="error"></span>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="Apellido_Paterno" id="floatingApPaterno" class="form-control inputIdentidad" placeholder="Ingresa tu Apellido Paterno.">
+                                    <label for="floatingApPaterno">Apellido Paterno:</label>
+                                    <span id="errorApPaterno" class="error"></span>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="Apellido_Materno"  id="floatingApMaterno" class="form-control inputIdentidad" placeholder="Ingresa solo tu Apellido Materno ">
+                                    <label for="floatingApMaterno">Apellido Materno:</label>
+                                    <span id="errorApMaterno" class="error"></span>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="tel" maxlength="18" name="CURP" id="floatingCURP" class="form-control inputIdentidad" placeholder="Ingresa tu CURP"/>
+                                    <label for="floatingCURP">CURP:</label>
+                                    <span id="errorCurp" class="error"></span>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="date" name="Fecha" id="floatingFecha" class="form-control inputIdentidad" placeholder="Introduce tu fecha de Nacimeinto">
+                                    <label for="floatingFecha">Fecha de Nacimiento:</label>
+                                </div>
+                                <fieldset class="row mb-3">
+                                    <legend class="col-form-label col-sm-2 pt-0">Género:</legend>
+                                    <div class="col-sm-10">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="generoRadio" id="masculinoRadio" value="Masculino" checked>
+                                            <label class="form-check-label" for="masculinoRadio">
+                                            Masculino.
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="generoRadio" id="femeninoRadio" value="Femenino">
+                                            <label class="form-check-label" for="femeninoRadio">
+                                            Femenino.
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="generoRadio" id="otroRadio" value="Otro">
+                                            <label class="form-check-label" for="otroRadio">
+                                            Otro.
+                                            </label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="row mb-3">
+                                    <legend class="col-form-label col-sm-2 pt-0">A fin de considerar sus necesidades y atenderlas, requerimos saber si usted es una persona:</legend>
+                                    <div class="col-sm-10">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="discapacidadRadio" id="auditivaRadio" value="Discapacidad auditiva" onclick="habilitarDis();">
+                                            <label class="form-check-label" for="auditivaRadio">
+                                            Con discapacidad auditiva.
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="discapacidadRadio" id="sillaRuedasRadio" value="Discapacidad motriz usuaria de silla de ruedas" onclick="habilitarDis();">
+                                            <label class="form-check-label" for="SillaRuedasRadio">
+                                            Con discapacidad motriz usuaria de silla de ruedas.
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="discapacidadRadio" id="muletasRadio" value="Discapacidad motriz usuaria de muletas" onclick="habilitarDis();">
+                                            <label class="form-check-label" for="muletasRadio">
+                                            Con discapacidad motriz usuaria de muletas.
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="discapacidadRadio" id="bastonRadio" value="Discapacidad motriz usuaria de bastón" onclick="habilitarDis();">
+                                            <label class="form-check-label" for="bastonRadio">
+                                            Con discapacidad motriz usuaria de bastón.
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="discapacidadRadio" id="otraRadio" value="Otra" onclick="habilitarDis();">
+                                            <label class="form-check-label" for="otraRadio">
+                                            Otra.
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="discapacidadRadio" id="ningunaRadio" value="Ninguna" onclick="habilitarDis();" checked>
+                                            <label class="form-check-label" for="ningunaRadio">
+                                            Ninguna
+                                            </label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="discapacidad" id="floatingDiscapacidad" class="form-control" placeholder=" " disabled>
+                                    <label for="floatingDiscapacidad">Discapacidad:</label>
+                                </div>
+                            </fieldset>
+                            <button type="button" class="btn btn-outline-primary" onclick="redirigirAPestaña();">Siguiente</button>
+                        </div>
+                        <!-- Pestaña Contacto -->
+                        <div class="tab-pane fade" id="panelPestañaContacto" role="tabpanel" aria-labelledby="pestañaContacto" tabindex="0">
+                            <fieldset id="contacto">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="Calle" id="floatingCalle" class="form-control inputContacto" placeholder=" "/>
+                                    <label for="floatingCalle">Calle:</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="NumeroC" id="floatingNumeroC" class="form-control inputContacto" placeholder=" " size="4">
+                                    <label for="floatingNumeroC">Número:</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <select name="EntidadFederativa" id="floatingEntidadFederativa" onchange="cargarMunicipios();" class="form-control">
+                                    </select>
+                                    <label for="floatingEntidadFederativa">Entidad Federativa:</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <select name="MunAl" id="floatingMunAl" class="form-control">
+                                    </select>
+                                    <label for="floatingMunAl">Municipio/Alcaldía:</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="tel" name="CodigoPostal" id="floatingCP" class="form-control inputContacto" placeholder=" " maxlength="5">
+                                    <label for="floatingCP">Código Postal:</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="tel" name="Telefono" id="floatingTel" class="form-control inputContacto" placeholder=" " maxlength="10">
+                                    <label for="floatingTel">Teléfono:</label>
+                                    <span id="errorTelefono" class="error"></span>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="email" name="correo" id="floatingCorreo" class="form-control inputContacto" placeholder="abcd@ejemplo.com">
+                                    <label for="floatingCorreo">Correo:</label>
+                                    <span id="errorCorreo" class="error"></span>
+                                </div>
+                            </fieldset>
+                            <button type="button" class="btn btn-outline-primary" onclick="redirigirAPestaña2();">Siguiente</button>
+                        </div>
+                        <!-- Pestaña Procedencia -->
+                        <div class="tab-pane fade" id="panelPestañaProcedencia" role="tabpanel" aria-labelledby="pestañaProcedencia" tabindex="0">
+                            <fieldset>
+                                <div class="form-floating mb-3">
+                                    <select name="EscP" id="floatingEscP" class="form-control" onchange="habilitarNomEsc();">
+                                        <option value="CECyT 1 González Vázquez Vega">CECyT 1 "González Vázquez Vega"</option>
+                                        <option value="CECyT 2 Miguel Bernard">CECyT 2 "Miguel Bernard"</option>
+                                        <option value="CECyT 3 Estanislao Ramírez Ruiz">CECyT 3 "Estanislao Ramírez Ruiz"</option>
+                                        <option value="CECyT 4 Lázaro Cárdenas">CECyT 4 "Lázaro Cárdenas"</option>
+                                        <option value="CECyT 5 Benito Juárez García">CECyT 5 "Benito Juárez García"</option>
+                                        <option value="CECyT 6 Miguel Othón de Mendizábal">CECyT 6 "Miguel Othón de Mendizábal"</option>
+                                        <option value="CECyT 7 Cuauhtémoc">CECyT 7 "Cuauhtémoc"</option>
+                                        <option value="CECyT 8 Narciso Bassols García">CECyT 8 "Narciso Bassols García"</option>
+                                        <option value="CECyT 9 Juan de Dios Bátiz">CECyT 9 "Juan de Dios Bátiz"</option>
+                                        <option value="CECyT 10 Carlos Vallejo Márquez">CECyT 10 "Carlos Vallejo Márquez"</option>
+                                        <option value="CECyT 11 Wilfrido Massieu Pérez">CECyT 11 "Wilfrido Massieu Pérez"</option>
+                                        <option value="CECyT 12 José María Morelos y Pavón">CECyT 12 "José María Morelos y Pavón"</option>
+                                        <option value="CECyT 13 Ricardo Flores Magón">CECyT 13 "Ricardo Flores Magón"</option>
+                                        <option value="CECyT 14 Luis Enrique Erro">CECyT 14 "Luis Enrique Erro"</option>
+                                        <option value="CECyT 15 Diódoro Antúnez Echegaray">CECyT 15 "Diódoro Antúnez Echegaray"</option>
+                                        <option value="CECYT 16 Hidalgo">CECYT 16 "Hidalgo"</option>
+                                        <option value="CECYT 17 León, Guanajuato">CECYT 17 "León, Guanajuato"</option>
+                                        <option value="CECYT 18 Zacatecas">CECYT 18 "Zacatecas"</option>
+                                        <option value="CECyT 19 Leona Vicario">CECyT 19 “Leona Vicario”</option>
+                                        <option value="CET 1 Walter Cross Buchanan">CET 1 “Walter Cross Buchanan”</option>
+                                        <option value="Otros">Otra escuela</option>
+                                    </select>
+                                    <label for="floatingEscP">Escuela de procedencia:</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="NomEsc" id="floatingNomEsc" class="form-control" placeholder=" " disabled value="">
+                                    <label for="floatingNomEsc">Nombre de la escuela:</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="Promedio" id="floatingPromedio" class="form-control" placeholder=" ">
+                                    <label for="floatingPromedio">Promedio:</label>
+                                </div>
+                                <fieldset class="row mb-3">
+                                    <legend class="col-form-label col-sm-2 pt-0">ESCOM fue tu: </legend>
+                                    <div class="col-sm-10">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="OpRadio" id="1erOpRadio" value="Primer opción" checked>
+                                            <label class="form-check-label" for="1erOpRadio">
+                                            1er. Opción.
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="OpRadio" id="2daOpRadio" value="Segunda opción">
+                                            <label class="form-check-label" for="2daOpRadio">
+                                            2da. Opción.
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="OpRadio" id="3erOpRadio" value="Tercer opción">
+                                            <label class="form-check-label" for="3erOpRadio">
+                                            3era. Opción.
+                                            </label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </fieldset>
+                            <button type="reset" class="btn btn-outline-danger">Limpiar</button>
+                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#checkDatos" id="mostrarModal">Guardar</button>
+
+                            <!-- Modal -->
+                            <div class="modal" id="checkDatos">
+                                <div class="modal-dialog modal-dialog-scrollable">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Verificación de datos</h4>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <b>No. Boleta:</b><p id="Boleta"></p>
+                                            <b>Nombre:</b><p id="Nombre"></p>
+                                            <b>Apellido paterno:</b><p id="ApPaterno"></p>
+                                            <b>Apellido materno:</b><p id="ApMaterno"></p>
+                                            <b>CURP:</b><p id="CURP"></p>
+                                            <b>Fecha de Nacimiento:</b><p id="FechaNac"></p>
+                                            <b>Genero:</b><p id="Genero"></p>
+                                            <b>Discapacidad:</b><p id="Discapacidad"></p>
+                                            <b>Calle:</b><p id="Calle"></p>
+                                            <b>Número:</b><p id="Numero"></p>
+                                            <b>Entidad Federativa:</b><p id="EntidadFederativa"></p>
+                                            <b>Municipio/Alcaldia:</b><p id="MunicipioAlcaldia"></p>
+                                            <b>Codigo Postal:</b><p id="CodigoPostal"></p>
+                                            <b>Teléfono:</b><p id="Telefono"></p>
+                                            <b>Correo:</b><p id="Correo"></p>
+                                            <b>Escuela de procedencia:</b><p id="EscuelaProcedencia"></p>
+                                            <b>Promedio:</b><p id="Promedio"></p>
+                                            <b>ESCOM fue:</b><p id="Opcion"></p>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary justify-content-evenly" data-bs-dismiss="modal">Modificar</button>
+                                            <button type="submit" class="btn btn-success justify-content-end">Guardar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer class="text-center text-white" id="piePag">
+        <div class="p-4 pb-0">
+            <section class="">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-lg-6">
+                        <a href="https://escom.ipn.mx/">
+                            <img src="./img/escom.png" alt="ESCOM30Aniversario">
+                        </a>
+                        <a href="./login.html" class="text-white">Administrador</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="text-center p-3" id="derPiePag">
+            © 2024 Página creada por: Anuar, Camila, Daniel, Angela y Oscar
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
