@@ -65,9 +65,6 @@ while($mostrar = mysqli_fetch_array($querybuscar))
     //$nombreEscuela = $mostrar['NombreEscuela']; 
     $promedio = $mostrar['Promedio'];
     $escomOpcion = $mostrar['ESCOM_Opcion'];
-    $idsalon=$mostrar['idSalon'];
-
-
 }
 
 ?>

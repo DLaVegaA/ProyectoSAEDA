@@ -45,6 +45,7 @@
         $codigoPostal = $_POST['CodigoPostal'];
         $telefono = $_POST['Telefono'];
         $correo = $_POST['correo'];
+        $realizoExamen = 0;
         
         //Obterer datos de procedencia
         if ($_POST['EscP'] == "Otros") 
@@ -59,29 +60,32 @@
         $escomOpcion = $_POST['OpRadio'];
 
         // Llamar al procedimiento almacenado para obtener el ID del salón
-        $sp_salon = 'ObtenerPrimerSalon';
-        $stmt1 = $conexion->prepare("CALL $sp_salon(@salonId)");
-        $stmt1->execute();
+        $sp_examenid = 'ObtenerIdExamen';
+        $stmt = $conexion->prepare("CALL $sp_examenid()");
+        $stmt->execute();
 
         // Verificar si se ejecutó correctamente
-        if (!$stmt1) {
+        if (!$stmt) {
             die("Error al ejecutar el procedimiento almacenado: " . $conexion->error);
         }
 
         // Obtener el ID del salón después de llamar al procedimiento
-        $result1 = $conexion->query("SELECT @salonId AS salonId");
-        $salonRow = $result1->fetch_assoc();
-        $salonId = $salonRow['salonId'];
+        $result = $stmt->get_result();
+        $examenRow = $result->fetch_assoc();
+        $examenId = $examenRow['idExamen'];
+
+        $stmt->free_result();
+        $stmt->close();
 
         //insertar en la base de datos
-        $sqlAlumno = "INSERT INTO Alumno (NoBoleta,idSalon , Nombre, ApellidoPaterno, ApellidoMaterno, CURP, FechaNacimiento, Genero, Discapacidad, Calle, numeroC, EntidadFederativa, MunicipioAlcaldia, CodigoPostal, Telefono, Correo, EscuelaProcedencia, Promedio, ESCOM_Opcion) 
-            VALUES ('$noBoleta', '$salonId' , '$nombre', '$apellidoPaterno', '$apellidoMaterno', '$curp', '$fechaNacimiento', '$genero', '$discapacidad', '$calle', '$numeroC', '$entidadFederativa', '$munAl', '$codigoPostal', '$telefono', '$correo', '$escuelaProcedencia', '$promedio', '$escomOpcion')";
+        $sqlAlumno = "INSERT INTO Alumno (NoBoleta, idExamen, RealizoExamen, Nombre, ApellidoPaterno, ApellidoMaterno, CURP, FechaNacimiento, Genero, Discapacidad, Calle, numeroC, EntidadFederativa, MunicipioAlcaldia, CodigoPostal, Telefono, Correo, EscuelaProcedencia, Promedio, ESCOM_Opcion) 
+        VALUES ('$noBoleta', '$examenId', $realizoExamen, '$nombre', '$apellidoPaterno', '$apellidoMaterno', '$curp', '$fechaNacimiento', '$genero', '$discapacidad', '$calle', '$numeroC', '$entidadFederativa', '$munAl', '$codigoPostal', '$telefono', '$correo', '$escuelaProcedencia', '$promedio', '$escomOpcion')";
 
         if ($conexion->query($sqlAlumno) !== TRUE) {
             die("Error al insertar datos del alumno: " . $conexion->error);
         }
 
-        // Obtener Número del salón
+        /* // Obtener Número del salón
         
         $stm2 = $conexion->prepare("CALL ObtenerNoSalon(?, @salonNo)");
         $stm2->bind_param("s", $salonId);
@@ -89,21 +93,23 @@
 
         if (!$stm2) {
             die("Error al ejecutar el procedimiento almacenado: " . $conexion->error);
-        }
+        } */
 
-        $result2 = $conexion->query("SELECT @salonNo AS salonNo");
+        /* $result2 = $conexion->query("SELECT @salonNo AS salonNo");
         $row2 = $result2->fetch_assoc();
-        $salonNo = $row2['salonNo'];
+        $salonNo = $row2['salonNo']; */
 
         // Obtener ID del horario
 
         $stm3 = $conexion->prepare("CALL ObteneridHorario(?, @horarioId)");
-        $stm3->bind_param("s", $salonId);
+        $stm3->bind_param("s", $examenId);
         $stm3->execute();
 
         if (!$stm3) {
             die("Error al ejecutar el procedimiento almacenado: " . $conexion->error);
         }
+
+        $stm3->close();
 
         $result3 = $conexion->query("SELECT @horarioId AS horarioId");
         $row3 = $result3->fetch_assoc();
@@ -119,6 +125,8 @@
             die("Error al ejecutar el procedimiento almacenado: " . $conexion->error);
         }
 
+        $stm4->close();
+
         $result4 = $conexion->query("SELECT @Horario AS Horario");
         $row4 = $result4->fetch_assoc();
         $Horario = $row4['Horario'];
@@ -132,6 +140,8 @@
         if (!$stm5) {
             die("Error al ejecutar el procedimiento almacenado: " . $conexion->error);
         }
+
+        $stm5->close();
 
         $result5 = $conexion->query("SELECT @Dia AS Dia");
         $row5 = $result5->fetch_assoc();
@@ -151,7 +161,7 @@
         $pdf->Ln(5);
         $pdf->Write(26, utf8_decode('Escuela Superior de Cómputo'));
         $pdf->Ln(5);
-        $pdf->Write(27, 'Semestre: 2024-2');
+        $pdf->Write(27, 'Semestre: 2025-1');
         $pdf->Ln(5);
         $pdf->Write(28, 'Boleta: '.$noBoleta);
         $pdf->Ln(5);
@@ -178,15 +188,12 @@
         $pdf->Cell(192, 10, utf8_decode('Escuela de Procedencia: '.$escuelaProcedencia), 1, 1);
         $pdf->SetFont('arial', '', 12);
         $pdf->Ln(5);
-        $pdf->Write(5, utf8_decode('Para poder realizar tu examen simulacro recuerda presentarte el día y hora asignados en este PDF, así como también llegar con este este documento firmado, recuerda que debes llevar lápiz, goma, sacapuntas y una pluma negra o roja. En el inicio de la página puedes encontrar un croquis que te ayudara a llegar a tu laboratorio asignado.'));
+        $pdf->Write(5, utf8_decode('Para poder realizar tu examen simulacro recuerda iniciar sesión el día y hora asignados en este PDF, así como también entrar unos minutos antes. En el inicio de la página puedes encontrar un croquis que te ayudara en tu inicio de semestre y no perderte en tu primer día.'));
         $pdf->Ln(10);
         $pdf->SetFont('arial', 'B', 12);
-        $pdf->Cell(96, 10, 'Laboratorio: '.$salonId, 0, 0);
         $pdf->Cell(96, 10, 'Horario: ' . $Horario . ' ' . $Dia, 0, 1);
         $pdf->Ln(40);
-        $pdf->Cell(192, 10, '__________________________________', 0, 1, 'C');
-        $pdf->SetFont('times', 'B', '10');
-        $pdf->Cell(192, 2, 'Firma del alumno.', 0, 1, 'C');
+        $pdf->Cell(192, 2, 'Proyecto SAEDA.', 0, 1, 'C');
 
         $conexion->close(); // Cerrar la conexión
 
