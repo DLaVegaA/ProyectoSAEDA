@@ -57,25 +57,26 @@ CREATE TABLE `alumno` (
   `EntidadFederativa` varchar(50) DEFAULT NULL,
   `MunicipioAlcaldia` varchar(50) DEFAULT NULL,
   `CodigoPostal` int(5) DEFAULT NULL,
-  `Telefono` int(10) DEFAULT NULL,
+  `Telefono` varchar(10) DEFAULT NULL,
   `Correo` varchar(100) DEFAULT NULL,
   `EscuelaProcedencia` varchar(100) DEFAULT NULL,
   `Promedio` float DEFAULT NULL,
   `ESCOM_Opcion` varchar(20) DEFAULT NULL,
-  `idSalon` varchar(35) DEFAULT NULL
+  `RealizoExamen` int(1) DEFAULT NULL,
+  `idExamen` int(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla alumno
 --
 
-/* INSERT INTO `alumno` (`NoBoleta`, `Nombre`, `ApellidoPaterno`, `ApellidoMaterno`, `CURP`, `FechaNacimiento`, `Genero`, `Discapacidad`, `Calle`, `NumeroC`, `EntidadFederativa`, `MunicipioAlcaldia`, `CodigoPostal`, `Telefono`, `Correo`, `EscuelaProcedencia`, `Promedio`, `ESCOM_Opcion`, `idSalon`) 
+INSERT INTO `alumno` (`NoBoleta`, `Nombre`, `ApellidoPaterno`, `ApellidoMaterno`, `CURP`, `FechaNacimiento`, `Genero`, `Discapacidad`, `Calle`, `NumeroC`, `EntidadFederativa`, `MunicipioAlcaldia`, `CodigoPostal`, `Telefono`, `Correo`, `EscuelaProcedencia`, `Promedio`, `ESCOM_Opcion`, `RealizoExamen`, `idExamen`) 
 VALUES
-('2022630001', 'Juan', 'Pérez', 'González', 'PERJ930101HDFLRN05', '2003-01-01', 'Masculino', 'Ninguna', 'Av. Insurgentes Sur', '1234', 'Ciudad de México', 'Benito Juárez', '03810', '5551234567', 'juanP@alumno.ipn.mx', 'CECyT 1 González Vázquez Vega', 8.5, 'Primer opción', 'Laboratorio de sistemas I'),
-('2022630002', 'María', 'García', 'López', 'GALM950202MSPRRN09', '2002-02-02', 'Femenino', 'Ninguna', 'Calle Reforma', '567', 'Nuevo León', 'Monterrey', '64000', '8187654321', 'margarc@alumnoguinda.ipn.mx', 'CECyT 2 Miguel Bernard', 9.2, 'Segunda opción', 'Laboratorio de sistemas I'),
-('2022630003', 'Luis', 'Hernández', 'Martínez', 'HEMA980303MTSRRN03', '1998-03-03', 'Masculino', 'Ninguna', 'Calle Hidalgo', '890', 'Jalisco', 'Guadalajara', '44100', '3339876543', 'luishdz@alumno.ipn.com', 'CECyT 5 Benito Juárez García', 8.9, 'Tercer opción', 'Laboratorio de sistemas I'),
-('2022630004', 'Ana', 'Rodríguez', 'Sánchez', 'ROSA970404MSMRRN08', '2001-04-04', 'Femenino', 'Discapacidad auditiva', 'Av. Juárez', '101', 'Puebla', 'Puebla', '72000', '2225554444', 'annna@alumnoguinda.mx.com', 'Preparatoria 2 de octubre', 8, 'Primer opción', 'Laboratorio de sistemas I'),
-('2022630005', 'Pedro', 'López', 'Díaz', 'LODP960505HGRRRN07', '1999-05-05', 'Masculino', 'Discapacidad motriz usuaria de silla de ruedas', 'Av. Revolución', '2468', 'Baja California', 'Tijuana', '22000', '6643332222', 'pedrolopz@alumno.ipn.com', 'CECyT 15 Diódoro Antúnez Echegaray', 9.5, 'Segunda opción', 'Laboratorio de sistemas I'); */
+('2022630001', 'Juan', 'Pérez', 'González', 'PERJ930101HDFLRN05', '2003-01-01', 'Masculino', 'Ninguna', 'Av. Insurgentes Sur', '1234', 'Ciudad de México', 'Benito Juárez', '03810', '5551234567', 'juanP@alumno.ipn.mx', 'CECyT 1 González Vázquez Vega', 8.5, 'Primer opción', '0', '1'),
+('2022630002', 'María', 'García', 'López', 'GALM950202MSPRRN09', '2002-02-02', 'Femenino', 'Ninguna', 'Calle Reforma', '567', 'Nuevo León', 'Monterrey', '64000', '8187654321', 'margarc@alumnoguinda.ipn.mx', 'CECyT 2 Miguel Bernard', 9.2, 'Segunda opción', '0', '2'),
+('2022630003', 'Luis', 'Hernández', 'Martínez', 'HEMA980303MTSRRN03', '1998-03-03', 'Masculino', 'Ninguna', 'Calle Hidalgo', '890', 'Jalisco', 'Guadalajara', '44100', '3339876543', 'luishdz@alumno.ipn.com', 'CECyT 5 Benito Juárez García', 8.9, 'Tercer opción', '0', '3'),
+('2022630004', 'Ana', 'Rodríguez', 'Sánchez', 'ROSA970404MSMRRN08', '2001-04-04', 'Femenino', 'Discapacidad auditiva', 'Av. Juárez', '101', 'Puebla', 'Puebla', '72000', '2225554444', 'annna@alumnoguinda.mx.com', 'Preparatoria 2 de octubre', 8, 'Primer opción', '0', '4'),
+('2022630005', 'Pedro', 'López', 'Díaz', 'LODP960505HGRRRN07', '1999-05-05', 'Masculino', 'Discapacidad motriz usuaria de silla de ruedas', 'Av. Revolución', '2468', 'Baja California', 'Tijuana', '22000', '6643332222', 'pedrolopz@alumno.ipn.com', 'CECyT 15 Diódoro Antúnez Echegaray', 9.5, 'Segunda opción', '0', '5');
 
 -- --------------------------------------------------------
 
@@ -83,11 +84,12 @@ VALUES
 -- Estructura de tabla para la tabla salon
 --
 
-CREATE TABLE `salon` (
-  `idSalon` varchar(35) NOT NULL,
-  `numeroSalon` int(4) NOT NULL,
-  `capacidadMAX` int(2) DEFAULT NULL,
-  `alumnosRegistrados` int(2) DEFAULT NULL,
+CREATE TABLE `examen` (
+  `idExamen` int(4) NOT NULL,
+  `resultElectronicaSecc` int(2) NOT NULL,
+  `resultProgramacionSecc` int(2) DEFAULT NULL,
+  `resultCalculoSecc` int(2) DEFAULT NULL,
+  `resultFisicaSecc` int(2) DEFAULT NULL,
   `idHorario` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -95,19 +97,12 @@ CREATE TABLE `salon` (
 -- Volcado de datos para la tabla salon
 --
 
-INSERT INTO `salon` (`idSalon`, `numeroSalon`, `capacidadMAX`, `alumnosRegistrados`, `idHorario`) VALUES
-('Laboratorio de sistemas I', 2104, 30, 5,'horario1A'),
-('Laboratorio de sistemas II', 2105, 30, 0,'horario1A'),
-('Laboratorio de sistemas III', 2106, 30, 0,'horario1A'),
-('Laboratorio de sistemas IV', 2107, 30, 0,'horario1A'),
-('Laboratorio de programación I', 1105, 30, 0,'horario1A'),
-('Laboratorio de programación II', 1106, 30, 0,'horario1A'),
-('Laboratorio de programación III', 1107, 30, 0,'horario1B'),
-('Laboratorio de redes', 1104, 30, 0,'horario1B'),
-('Laboratorio de IA I', 4012, 30, 0,'horario1B'),
-('Laboratorio de IA II', 4013, 30, 0,'horario1B'),
-('Laboratorio de CD I', 3012, 30, 0,'horario1B'),
-('Laboratorio de CD II', 3013, 30, 0,'horario1B');
+INSERT INTO `examen` (`idExamen`, `resultElectronicaSecc`, `resultProgramacionSecc`, `resultCalculoSecc`, `resultFisicaSecc`, `idHorario`) VALUES
+('1', 2, 5, 5, 10, 'horario1A'),
+('2', 5, 12, 10, 12, 'horario1A'),
+('3', 6, 8, 15, 19,'horario1A'),
+('4', 6, 7, 9, 3, 'horario1A'),
+('5', 5, 7, 8, 9, 'horario1A');
 
 --
 -- Estructura de tabla para la tabla horario
@@ -137,14 +132,14 @@ INSERT INTO `horario` (`idHorario`, `horario`, `dia`) VALUES
 --
 ALTER TABLE `alumno`
   ADD PRIMARY KEY (`NoBoleta`),
-  ADD KEY `alumno_Salon` (`idSalon`);
+  ADD KEY `alumno_examen` (`idExamen`);
 
 --
 -- Indices de la tabla salon
 --
-ALTER TABLE `salon`
-  ADD PRIMARY KEY (`idSalon`),
-  ADD KEY `salon_horario` (`idHorario`);
+ALTER TABLE `examen`
+  ADD PRIMARY KEY (`idExamen`),
+  ADD KEY `examen_horario` (`idHorario`);
 
 --
 -- Indices de la tabla horario
@@ -160,57 +155,44 @@ ALTER TABLE `horario`
 -- Filtros para la tabla alumno
 --
 ALTER TABLE `alumno`
-  ADD CONSTRAINT `alumno_Salon` FOREIGN KEY (`idSalon`) REFERENCES `salon` (`idSalon`) ON DELETE CASCADE;
+  ADD CONSTRAINT `alumno_examen` FOREIGN KEY (`idExamen`) REFERENCES `examen` (`idExamen`) ON DELETE CASCADE;
 COMMIT;
 
 --
 -- Filtros para la tabla salon
 --
-ALTER TABLE `salon`
-  ADD CONSTRAINT `salon_horario` FOREIGN KEY (`idHorario`) REFERENCES `horario` (`idHorario`) ON DELETE CASCADE;
+ALTER TABLE `examen`
+  ADD CONSTRAINT `examen_horario` FOREIGN KEY (`idHorario`) REFERENCES `horario` (`idHorario`) ON DELETE CASCADE;
 COMMIT;
 
 DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerPrimerSalon` (OUT `salonId` VARCHAR(35))   BEGIN
-    -- Inicializar la variable con un valor predeterminado (puedes ajustar según tus necesidades)
-    SET salonId = NULL;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerIdExamen` () BEGIN
+  DECLARE newId INT;
+  DECLARE horarioId VARCHAR(10);
 
-    -- Obtener el primer salón que cumple con la condición
-    SELECT salon.idSalon INTO salonId
-    FROM salon
-    WHERE salon.alumnosregistrados < 30
-    ORDER BY salon.idSalon
-    LIMIT 1;
+  SELECT COALESCE(MAX(`idExamen`) + 1, 1) INTO newId FROM `examen`;
 
-    -- Verificar si se obtuvo un idSalon válido
-    IF salonId IS NOT NULL THEN
-        -- Incrementar en 1 el campo alumnosRegistrados para el salón obtenido
-        UPDATE salon
-        SET alumnosRegistrados = alumnosRegistrados + 1
-        WHERE idSalon = salonId;
-    END IF;
-END$$
+  SELECT idHorario INTO horarioId 
+  FROM `horario` 
+  ORDER BY RAND() 
+  LIMIT 1;
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerNoSalon` (IN `salonId` VARCHAR(35), OUT `salonNo` int(4))   BEGIN
-    SET salonNo = NULL;
+  INSERT INTO `examen` (`idExamen`, `idHorario`) VALUES (newId, horarioId);
 
-    SELECT salon.numeroSalon INTO salonNo
-    FROM salon
-    WHERE salon.idSalon = salonId
-    LIMIT 1;
-END$$
+  SELECT newId AS `idExamen`;
+END $$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObteneridHorario` (IN `salonId` VARCHAR(35), OUT `horarioId` VARCHAR(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ObteneridHorario` (IN `examenId` int(4), OUT `horarioId` VARCHAR(10)) BEGIN
     SET horarioId = NULL;
 
-    SELECT salon.idHorario INTO horarioId
-    FROM salon
-    WHERE salon.idSalon = salonId
+    SELECT examen.idHorario INTO horarioId
+    FROM examen
+    WHERE examen.idExamen = examenId
     LIMIT 1;
-END$$
+END $$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerHorario` (IN `horarioId` VARCHAR(10), OUT `Horario` VARCHAR(30))   BEGIN
     SET Horario = NULL;
@@ -219,7 +201,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerHorario` (IN `horarioId` VAR
     FROM horario
     WHERE horario.idHorario = horarioId
     LIMIT 1;
-END$$
+END $$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerDia` (IN `horarioId` VARCHAR(10), OUT `Dia` VARCHAR(10))   BEGIN
     SET Dia = NULL;
@@ -228,7 +210,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerDia` (IN `horarioId` VARCHAR
     FROM horario
     WHERE horario.idHorario = horarioId
     LIMIT 1;
-END$$
+END $$
 
 DELIMITER ;
 
