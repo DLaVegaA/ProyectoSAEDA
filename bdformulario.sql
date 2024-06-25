@@ -86,7 +86,7 @@ VALUES
 
 CREATE TABLE `examen` (
   `idExamen` int(4) NOT NULL,
-  `resultElectronicaSecc` int(2) NOT NULL,
+  `resultElectronicaSecc` int(2) DEFAULT NULL,
   `resultProgramacionSecc` int(2) DEFAULT NULL,
   `resultCalculoSecc` int(2) DEFAULT NULL,
   `resultFisicaSecc` int(2) DEFAULT NULL,
