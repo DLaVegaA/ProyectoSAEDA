@@ -7,6 +7,8 @@
         header("Location: examen.html");
         exit();
     }
+
+    
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +23,13 @@
     <script src="./js/jquery-3.7.1.minpro.js"></script>
     <title>.::Aplicar Examen Diagnóstico::.</title>
     <title>Examen</title>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('btnElecSec').onclick = function() {
+                window.location.href = './conexionSeccionElectronica.php';
+            }
+        });
+    </script>
 </head>
 <body id="cuerpo">
     <!-- Nav principal -->

@@ -212,6 +212,15 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerDia` (IN `horarioId` VARCHAR
     LIMIT 1;
 END $$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerExamenId` (IN `NoBoleta` VARCHAR(10), OUT `idExamen` INT(4)) BEGIN
+  SET idExamen = NULL;
+
+  SELECT alumno.idExamen INTO idExamen
+  FROM alumno
+  WHERE alumno.NoBoleta = NoBoleta
+  LIMIT 1;
+END $$
+
 DELIMITER ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
