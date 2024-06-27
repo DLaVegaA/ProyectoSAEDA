@@ -369,21 +369,30 @@
 
 <!--Pie de pagina-->
 <footer class="text-center text-white" id="piePag">
-  <div class="p-4 pb-0">
-      <section class="">
-          <div class="row d-flex justify-content-center">
-              <div class="col-lg-6">
-                  <a href="https://escom.ipn.mx/">
-                      <img src="./img/logoEscomBlanco.png" alt="ESCOM30Aniversario" class="small-logo">
-                  </a>
-              </div>
-          </div>
-      </section>
-  </div>
-  <div class="text-center p-3" id="derPiePag">
-      © 2024 Página creada por: Anuar, Camila, Daniel, Angela y Oscar
-  </div>
-</footer>
+        <div class="p-4 pb-0">
+            <section class="">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <a href="">
+                                    <img src="./img/logoEscomBlanco.png" alt="ESCOM30Aniversario">
+                                </a>
+                            </div>
+                        </div>       
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Si tienes algún problema con la pagina, tienes alguna duda o aclaración, comunicate con nosotros con el siguiente correo:</p>
+                        <br>
+                        <p>gestion.contacto.saeda@gmail.com</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="text-center p-3" id="derPiePag">
+            © 2024 Página creada por: Anuar, Camila, Daniel, Angela y Oscar
+        </div>
+    </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 

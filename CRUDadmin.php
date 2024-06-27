@@ -37,7 +37,7 @@ if (!isset($_SESSION['idAdmin'])) {
     <nav class="navbar navbar-expand-sm justify-content-sm-center sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="https://escom.ipn.mx/">
-                <img src="./img/logoESCOM.png" id="LogoESCOMNav" alt="ESCOM" width="60" height="48">
+                <img src="./img/logoSAEDA.png" id="LogoESCOMNav" alt="ESCOM" width="60" height="48">
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
@@ -124,7 +124,7 @@ if (!isset($_SESSION['idAdmin'])) {
         </div>
     </section>
 
-    <footer class="text-center text-white" id="piePag">
+    <!-- <footer class="text-center text-white" id="piePag">
         <div class="p-4 pb-0">
             <section class="">
                 <div class="row d-flex justify-content-center">
@@ -139,6 +139,26 @@ if (!isset($_SESSION['idAdmin'])) {
         </div>
         <div class="text-center p-3" id="derPiePag">
             © 2023 Página creada por: Anuar, Imanol, Adolfo y Lucas
+        </div>
+    </footer> -->
+
+    <footer class="text-center text-white" id="piePag">
+        <div class="p-4 pb-0">
+            <section class="">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-sm-6">
+                        <a href="https://escom.ipn.mx/">
+                            <img src="./img/logoEscomBlanco.png" alt="ESCOM30Aniversario">
+                        </a>                      
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="./php/cerrarSesion.php" class="text-white">Cerrar Sesión</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="text-center p-3" id="derPiePag">
+            © 2024 Página creada por: Anuar, Camila, Daniel, Angela y Oscar
         </div>
     </footer>
 

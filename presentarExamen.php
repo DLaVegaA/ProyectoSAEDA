@@ -235,10 +235,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6 contenedorBotones">
+            <!-- <div class="col-sm-6 contenedorBotones">
                 <button class="btn btn-primary estBtn" id="btnEstadisticasEx">Ver estadísticas</button>
-            </div>
-            <div class="col-sm-6 contenedorBotones">
+            </div> -->
+            <div class="col-sm-12 contenedorBotones">
                 <button class="btn btn-danger terBtn" id="btnTerminarEx">Terminar examen</button>
             </div>            
         </div>
@@ -248,10 +248,19 @@
         <div class="p-4 pb-0">
             <section class="">
                 <div class="row d-flex justify-content-center">
-                    <div class="col-lg-6">
-                        <a href="https://escom.ipn.mx/">
-                            <img src="./img/logoEscomBlanco.png" alt="ESCOM30Aniversario">
-                        </a>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <a href="">
+                                    <img src="./img/logoEscomBlanco.png" alt="ESCOM30Aniversario">
+                                </a>
+                            </div>
+                        </div>       
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Si tienes algún problema con la pagina, tienes alguna duda o aclaración, comunicate con nosotros con el siguiente correo:</p>
+                        <br>
+                        <p>gestion.contacto.saeda@gmail.com</p>
                     </div>
                 </div>
             </section>

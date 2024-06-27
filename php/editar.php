@@ -74,6 +74,7 @@ while($mostrar = mysqli_fetch_array($querybuscar))
 		<meta charset="UTF-8">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="../js/ProyectoJs.js"></script>
+        <script src="./js/estados.js" defer></script>
         <script>
         document.addEventListener("DOMContentLoaded", function() {
             habilitarNomEsc();
@@ -337,7 +338,7 @@ while($mostrar = mysqli_fetch_array($querybuscar))
 
 
 
-    $querymodificar = mysqli_query($conexion, "UPDATE Alumno SET `NoBoleta`='$noBoleta1',`Nombre`='$nombre1',`ApellidoPaterno`='$apellidoPaterno1',`ApellidoMaterno`='$apellidoMaterno1',`CURP`='$curp1',`FechaNacimiento`='$fechaNacimiento1',`Genero`='$genero1',`Discapacidad`='$discapacidad1',`Calle`='$calle1',`NumeroC`='$numeroC1',`EntidadFederativa`='$entidadFederativa1',`MunicipioAlcaldia`='$munAl1',`CodigoPostal`='$codigoPostal1',`Telefono`='$telefono1',`Correo`='$correo1',`EscuelaProcedencia`='$escuelaProcedencia1',`Promedio`='$promedio1',`ESCOM_Opcion`='$escomOpcion1',`idSalon`='$idsalon' WHERE NoBoleta=$NoBoleta");
+    $querymodificar = mysqli_query($conexion, "UPDATE Alumno SET `NoBoleta`='$noBoleta1',`Nombre`='$nombre1',`ApellidoPaterno`='$apellidoPaterno1',`ApellidoMaterno`='$apellidoMaterno1',`CURP`='$curp1',`FechaNacimiento`='$fechaNacimiento1',`Genero`='$genero1',`Discapacidad`='$discapacidad1',`Calle`='$calle1',`NumeroC`='$numeroC1',`EntidadFederativa`='$entidadFederativa1',`MunicipioAlcaldia`='$munAl1',`CodigoPostal`='$codigoPostal1',`Telefono`='$telefono1',`Correo`='$correo1',`EscuelaProcedencia`='$escuelaProcedencia1',`Promedio`='$promedio1',`ESCOM_Opcion`='$escomOpcion1' WHERE NoBoleta=$NoBoleta");
     echo "<script>window.location.href = '../CRUDadmin.php';</script>";
 
     
