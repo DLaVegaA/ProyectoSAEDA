@@ -26,7 +26,7 @@
         $row = $result->fetch_assoc();
         $idExamen = $row["idExamen"];
 
-        $consulta = "SELECT resultElectronicaSecc FROM examen WHERE idExamen = ?";
+        $consulta = "SELECT resultFisicaSecc FROM examen WHERE idExamen = ?";
         $stmt2 = $conexion->prepare($consulta);
         $stmt2->bind_param("s", $idExamen);
         $stmt2->execute();
@@ -37,12 +37,12 @@
 
         $result2 = $stmt2->get_result();
         $row2 = $result2->fetch_assoc();
-        $resultElectronicaSecc = $row2["resultElectronicaSecc"];
+        $resultFisicaSecc = $row2["resultFisicaSecc"];
 
         $stmt2->close();
 
-        if (is_null($resultElectronicaSecc)) {
-            $sql_update = "UPDATE examen SET resultElectronicaSecc = ? WHERE idExamen = ?";
+        if (is_null($resultFisicaSecc)) {
+            $sql_update = "UPDATE examen SET resultFisicaSecc = ? WHERE idExamen = ?";
             $stmt3 = $conexion->prepare($sql_update);
             $stmt3->bind_param("ss", $Aciertos, $idExamen);
             $stmt3->execute();

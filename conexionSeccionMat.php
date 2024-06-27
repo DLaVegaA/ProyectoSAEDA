@@ -1,15 +1,12 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "123456";
-$dbname = "bdsaeda";
+  session_start();
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+  error_log($_SESSION['NoBoleta']);
 
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
-
+  if (!isset($_SESSION['NoBoleta'])) {
+    header("Location: examen.html");
+    exit();
+  }
 ?>
 
 <!DOCTYPE html>
@@ -21,17 +18,188 @@ if ($conn->connect_error) {
   <link rel="stylesheet" href="./recuperarPDFCSS.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <title>Examen de Matemáticas</title>
+  <script src="./js/jquery-3.7.1.minpro.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById('exam-form');
+      const submitBtn = document.getElementById('submit-btn');
+      const nextSectionBtn = document.getElementById('next-section-btn');
+      const questions = form.querySelectorAll('.question');
+      const modal = document.getElementById('resultModal');
+      const resultText = document.getElementById('resultText');
+      const closeBtn = document.getElementsByClassName('close')[0];
+
+      submitBtn.style.display = 'none';
+      nextSectionBtn.style.display = 'none';
+      
+      form.addEventListener('change', function () {
+          let allAnswered = true;
+          questions.forEach(function (question) {
+              const inputs = question.querySelectorAll('input[type="radio"]');
+              let answered = false;
+              inputs.forEach(function (input) {
+                  if (input.checked) {
+                      answered = true;
+                  }
+              });
+              if (!answered) {
+                  allAnswered = false;
+              }
+          });
+
+          if (allAnswered) {
+            submitBtn.style.display = 'inline-block';
+            nextSectionBtn.style.display = 'inline-block';
+          } else {
+            submitBtn.style.display = 'none';
+            nextSectionBtn.style.display = 'none';
+          }
+
+          submitBtn.disabled = !allAnswered;
+          nextSectionBtn.disabled = !allAnswered;
+      });
+
+      submitBtn.addEventListener('click', function () {
+          const correctAnswers = {
+            q1: 'c',
+            q2: 'b',
+            q3: 'd',
+            q4: 'a',
+            q5: 'd',
+            q6: 'a',
+            q7: 'c',
+            q8: 'b',
+            q9: 'a',
+            q10: 'c',
+            q11: 'a',
+            q12: 'a',
+            q13: 'c',
+            q14: 'b',
+            q15: 'b',
+            q16: 'a',
+            q17: 'c',
+            q18: 'b',
+            q19: 'd',
+            q20: 'b'
+          };
+
+          let score = 0;
+          questions.forEach(function (question, index) {
+              const qNum = `q${index + 1}`;
+              const userAnswer = form.elements[qNum].value;
+              if (userAnswer === correctAnswers[qNum]) {
+                  score++;
+                  question.style.backgroundColor = 'lightgreen';
+              } else {
+                  question.style.backgroundColor = 'lightcoral';
+              }
+          });
+
+          resultText.textContent = `Has acertado ${score} de 20 preguntas.`;
+          modal.style.display = 'block';
+          nextSectionBtn.disabled = false;
+
+          // Ocultar el botón de "Revisar preguntas" y mostrar el botón de "Terminar sección"
+          submitBtn.style.display = 'none';
+          nextSectionBtn.style.display = 'inline-block';
+
+          // Asignar el valor de aciertos al campo oculto y enviar el formulario
+          document.getElementById('aciertos').value = score;
+      });
+
+      closeBtn.addEventListener('click', function () {
+          modal.style.display = 'none';
+      });
+
+      window.addEventListener('click', function (event) {
+          if (event.target == modal) {
+              modal.style.display = 'none';
+          }
+      });
+
+      /* nextSectionBtn.addEventListener('click', function () {
+          if (nextSectionBtn.disabled) {
+              event.preventDefault();
+              return;
+          }
+          // Enviar el formulario al presionar el botón "Terminar sección"
+          const correctAnswers = {
+            q1: 'c',
+            q2: 'b',
+            q3: 'd',
+            q4: 'a',
+            q5: 'd',
+            q6: 'a',
+            q7: 'c',
+            q8: 'b',
+            q9: 'a',
+            q10: 'c',
+            q11: 'a',
+            q12: 'a',
+            q13: 'c',
+            q14: 'b',
+            q15: 'b',
+            q16: 'a',
+            q17: 'c',
+            q18: 'b',
+            q19: 'd',
+            q20: 'b'
+          };
+
+          let score = 0;
+          questions.forEach(function (question, index) {
+              const qNum = `q${index + 1}`;
+              const userAnswer = form.elements[qNum].value;
+              if (userAnswer === correctAnswers[qNum]) {
+                  score++;
+                  question.style.backgroundColor = 'lightgreen';
+              } else {
+                  question.style.backgroundColor = 'lightcoral';
+              }
+          });
+
+          document.getElementById('aciertos').value = score;
+          form.submit();
+      }); */
+  });
+
+  $(document).ready(function(){
+    $("form#exam-form").submit(function(e){
+        e.preventDefault();
+
+        var aciertosE = $("#aciertos").val();
+        var noBoleta = "<?php echo $_SESSION['NoBoleta']; ?>";
+
+        $.ajax({
+            type: "POST",
+            url: "./php/resultadoMat.php",
+            data: {aciertos: aciertosE, NoBoleta: noBoleta},
+            success: function(response){
+                console.log(response);
+
+                if(response == "1"){
+                    alert("Error al guardar los datos");
+                }else{
+                    window.location.href = response;
+                }
+            }
+        });
+    });
+  });
+</script>
 </head>
 <body>
+    <!--navbar-->
     <nav class="navbar navbar-expand-sm justify-content-sm-center sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="https://escom.ipn.mx/">
-                <img src="./img/saeda_01.jpg" id="LogoESCOMNav" alt="ESCOM" width="70" height="48">
+            <a class="navbar-brand" href="">
+                <img src="./img/logoSAEDA.png" id="LogoESCOMNav" alt="ESCOM" width="60" height="48">
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-                <span class="navbar-toggler-icon">&#9776</span>
+                <span class="navbar-toggler-icon"">&#9776</span>
             </button>
+
             <span class="navbar-text justify-content-end" id="IPN">Instituto Politécnico Nacional</span>
         </div>
     </nav>
@@ -201,141 +369,6 @@ if ($conn->connect_error) {
       <p>Tus respuestas se guardaron correctamente.</p>
     </div>
   </div>
-
-  <!--Validaciones de las preguntas y conexion con la base-->
-  <script>
-  document.addEventListener('DOMContentLoaded', function () {
-      const form = document.getElementById('exam-form');
-      const submitBtn = document.getElementById('submit-btn');
-      const nextSectionBtn = document.getElementById('next-section-btn');
-      const questions = form.querySelectorAll('.question');
-      const modal = document.getElementById('resultModal');
-      const resultText = document.getElementById('resultText');
-      const closeBtn = document.getElementsByClassName('close')[0];
-
-      form.addEventListener('change', function () {
-          let allAnswered = true;
-          questions.forEach(function (question) {
-              const inputs = question.querySelectorAll('input[type="radio"]');
-              let answered = false;
-              inputs.forEach(function (input) {
-                  if (input.checked) {
-                      answered = true;
-                  }
-              });
-              if (!answered) {
-                  allAnswered = false;
-              }
-          });
-          submitBtn.disabled = !allAnswered;
-          nextSectionBtn.disabled = !allAnswered;
-      });
-
-      submitBtn.addEventListener('click', function () {
-          const correctAnswers = {
-            q1: 'c',
-            q2: 'b',
-            q3: 'd',
-            q4: 'a',
-            q5: 'd',
-            q6: 'a',
-            q7: 'c',
-            q8: 'b',
-            q9: 'a',
-            q10: 'c',
-            q11: 'a',
-            q12: 'a',
-            q13: 'c',
-            q14: 'b',
-            q15: 'b',
-            q16: 'a',
-            q17: 'c',
-            q18: 'b',
-            q19: 'd',
-            q20: 'b'
-          };
-
-          let score = 0;
-          questions.forEach(function (question, index) {
-              const qNum = `q${index + 1}`;
-              const userAnswer = form.elements[qNum].value;
-              if (userAnswer === correctAnswers[qNum]) {
-                  score++;
-                  question.style.backgroundColor = 'lightgreen';
-              } else {
-                  question.style.backgroundColor = 'lightcoral';
-              }
-          });
-
-          resultText.textContent = `Has acertado ${score} de 10 preguntas.`;
-          modal.style.display = 'block';
-          nextSectionBtn.disabled = false;
-
-          // Ocultar el botón de "Revisar preguntas" y mostrar el botón de "Terminar sección"
-          submitBtn.style.display = 'none';
-          nextSectionBtn.style.display = 'inline-block';
-
-          // Asignar el valor de aciertos al campo oculto y enviar el formulario
-          document.getElementById('aciertos').value = score;
-      });
-
-      closeBtn.addEventListener('click', function () {
-          modal.style.display = 'none';
-      });
-
-      window.addEventListener('click', function (event) {
-          if (event.target == modal) {
-              modal.style.display = 'none';
-          }
-      });
-
-      nextSectionBtn.addEventListener('click', function () {
-          if (nextSectionBtn.disabled) {
-              event.preventDefault();
-              return;
-          }
-          // Enviar el formulario al presionar el botón "Terminar sección"
-          const correctAnswers = {
-            q1: 'c',
-            q2: 'b',
-            q3: 'd',
-            q4: 'a',
-            q5: 'd',
-            q6: 'a',
-            q7: 'c',
-            q8: 'b',
-            q9: 'a',
-            q10: 'c',
-            q11: 'a',
-            q12: 'a',
-            q13: 'c',
-            q14: 'b',
-            q15: 'b',
-            q16: 'a',
-            q17: 'c',
-            q18: 'b',
-            q19: 'd',
-            q20: 'b'
-          };
-
-          let score = 0;
-          questions.forEach(function (question, index) {
-              const qNum = `q${index + 1}`;
-              const userAnswer = form.elements[qNum].value;
-              if (userAnswer === correctAnswers[qNum]) {
-                  score++;
-                  question.style.backgroundColor = 'lightgreen';
-              } else {
-                  question.style.backgroundColor = 'lightcoral';
-              }
-          });
-
-          document.getElementById('aciertos').value = score;
-          form.submit();
-      });
-  });
-</script>
-
 <!--Pie de pagina-->
 <footer class="text-center text-white" id="piePag">
   <div class="p-4 pb-0">
@@ -358,32 +391,3 @@ if ($conn->connect_error) {
 
 </body>
 </html>
-
-<?php
-$usuario_id = 1; // Predefinir el usuario 
-//$usuario_id = $_POST['1']; // Asume que el ID del usuario se envía en el formulario
-$aciertos= $_POST['aciertos'];
-
-// Comprobar si el atributo es NULL antes de insertar
-$sql_check = "SELECT resultCalculoSecc FROM examen WHERE idExamen = ?";
-$stmt_check = $conn->prepare($sql_check);
-$stmt_check->bind_param("i", $usuario_id);
-$stmt_check->execute();
-$result = $stmt_check->get_result();
-
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    if (is_null($row['resultCalculoSecc'])) {
-        $sql_update = "UPDATE examen SET resultCalculoSecc = ? WHERE idExamen = ?";
-        $stmt_update = $conn->prepare($sql_update);
-        $stmt_update->bind_param("ii", $aciertos, $usuario_id);
-        $stmt_update->execute();
-    } else {
-        // El atributo 'seccionMate' ya tiene un valor
-    }
-}
-
-
-$stmt_check->close();
-$conn->close();
-?></br>

@@ -29,6 +29,24 @@
                 window.location.href = './conexionSeccionElectronica.php';
             }
         });
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('btnProgSec').onclick = function() {
+                window.location.href = './conexionSeccionProgramacion.php';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('btnFisSec').onclick = function() {
+                window.location.href = './conexionSeccionFisica.php';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('btnCalSec').onclick = function() {
+                window.location.href = './conexionSeccionMat.php';
+            }
+        });
     </script>
 </head>
 <body id="cuerpo">

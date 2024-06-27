@@ -55,6 +55,7 @@
             submitBtn.style.display = 'none';
             nextSectionBtn.style.display = 'none';
         }
+        
         submitBtn.disabled = !allAnswered;
         nextSectionBtn.disabled = !allAnswered;
       });
