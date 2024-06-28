@@ -49,7 +49,7 @@
 
           if (allAnswered) {
             submitBtn.style.display = 'inline-block';
-            nextSectionBtn.style.display = 'inline-block';
+            /* nextSectionBtn.style.display = 'inline-block'; */
           } else {
             submitBtn.style.display = 'none';
             nextSectionBtn.style.display = 'none';

@@ -149,16 +149,16 @@
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item" id="navPrincipal">
-                        <a class="nav-link menuPrin" href="./index.html">Inicio</a>
+                        <a class="nav-link menuPrin" href="">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link menuPrin" href="./proyectoAct.html">Registro</a>
+                        <a class="nav-link menuPrin" href="">Registro</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link menuPrin" href="./recuperarPDF.html">Recuperar PDF</a>
+                        <a class="nav-link menuPrin" href="">Recuperar PDF</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link menuPrin activo" href="./examen.html">Examen</a>
+                        <a class="nav-link menuPrin activo" href="">Examen</a>
                     </li>
                 </ul>
             </div>
